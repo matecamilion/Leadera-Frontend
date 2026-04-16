@@ -1,0 +1,107 @@
+.section-block {
+  margin-top: 40px;
+}
+
+/* Agregamos una opacidad menor a la sección de completados para diferenciarla */
+.section-block.variant-completados {
+  opacity: 0.85;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.section-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Variantes de Iconos */
+.section-icon.prioritarios { background: #ffe5e5; color: #ff0000; }
+.section-icon.seguimientos { background: #fff3bf; color: #a16207; }
+.section-icon.nuevos { background: #dbeafe; color: #2563eb; }
+.section-icon.completados { background: #dcfce7; color: #15803d; } /* Verde Éxito */
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+  color: #1e293b;
+}
+
+.section-subtitle {
+  color: #64748b;
+  margin: 0;
+}
+
+/* Badges de Conteo */
+.count-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.count-badge.prioritarios { background: #ffe5e5; color: #ff0000; }
+.count-badge.seguimientos { background: #fff3bf; color: #a16207; }
+.count-badge.nuevos { background: #dbeafe; color: #2563eb; }
+.count-badge.completados { background: #dcfce7; color: #15803d; }
+
+/* Caja de Resumen Derecha */
+.urgent-box {
+  border-radius: 16px;
+  padding: 12px 18px;
+  text-align: center;
+  min-width: 90px;
+  color: white;
+}
+
+.urgent-box.prioritarios { background: #ff0000; }
+.urgent-box.seguimientos { background: #a16207; }
+.urgent-box.nuevos { background: #2563eb; }
+.urgent-box.completados { background: #15803d; }
+
+.urgent-box .number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: block;
+}
+
+.urgent-box .label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Grilla de Cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

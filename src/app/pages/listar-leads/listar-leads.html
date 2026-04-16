@@ -1,0 +1,77 @@
+<div class="contenedor-listado">
+  <header class="header-principal">
+    <div class="titulo-grupo">
+      <h1>Todos los leads</h1>
+      <span class="contador-leads">{{ leadsFiltrados().length }} leads encontrados</span>
+    </div>
+
+    <div class="buscador-wrapper">
+      <input 
+        type="text" 
+        placeholder="Buscar por nombre, email, teléfono o propiedad..."
+        [ngModel]="filtroBusqueda()"
+        (ngModelChange)="filtroBusqueda.set($event)">
+    </div>
+  </header>
+
+  <nav class="pestañas-filtro">
+    <button [class.activa]="estadoSeleccionado() === 'TODOS'" (click)="estadoSeleccionado.set('TODOS')">Todos ({{leads().length}})</button>
+    <button [class.activa]="estadoSeleccionado() === 'CALIENTE'" (click)="estadoSeleccionado.set('CALIENTE')">Calientes</button>
+    <button [class.activa]="estadoSeleccionado() === 'TIBIO'" (click)="estadoSeleccionado.set('TIBIO')">Tibios</button>
+    <button [class.activa]="estadoSeleccionado() === 'FRIO'" (click)="estadoSeleccionado.set('FRIO')">Frios</button>
+    <button>Ventas (0)</button>
+    <button>Perdidos (0)</button>
+  </nav>
+
+  <div class="lista-contenedor">
+    @for (lead of leadsFiltrados(); track lead.id) {
+      <div class="tarjeta-lead">
+  <div class="seccion-principal">
+    <div class="fila-superior">
+      <h2 class="nombre-lead">{{ lead.nombre }} {{ lead.apellido }}</h2>
+      <span class="badge-estado" [ngClass]="lead.estado.toLowerCase()">{{ lead.estado }}</span>
+    </div>
+
+    <div class="fila-contacto">
+      <span class="dato">
+        <span class="material-symbols-outlined icono-v">call</span>
+        {{ lead.telefono }}
+      </span>
+      <span class="dato">
+        <span class="material-symbols-outlined icono-v">mail</span>
+        {{ lead.email }}
+      </span>
+    </div>
+
+    <div class="fila-meta">
+      <span class="tiempo">
+        <span class="material-symbols-outlined icono-s">schedule</span>
+        {{ lead.ultimoContacto | tiempoTranscurrido }}
+      </span>
+      <span class="interacciones">
+        <span class="material-symbols-outlined icono-s">chat_bubble</span>
+        {{ lead.interacciones?.length || 0 }} interacciones
+      </span>
+    </div>
+
+    <div class="nota-ultima-accion">
+      <span class="texto-bold">Última:</span> {{ obtenerUltimoDetalle(lead) }}
+    </div>
+  </div>
+
+  <div class="seccion-busqueda">
+    @if (lead.busqueda) {
+      <div class="info-propiedad">
+        <p class="tipo-propiedad">
+          <span class="material-symbols-outlined icono-v">home_work</span>
+          {{ lead.busqueda.tipoVivienda }}, {{ lead.busqueda.zona }}
+        </p>
+        <p class="precio-rango">USD {{ lead.busqueda.precioMin | number }} - {{ lead.busqueda.precioMax | number }}</p>
+      </div>
+    }
+    <button class="btn-detalle" [routerLink]="['/leads', lead.id]" >Ver detalle</button>
+  </div>
+</div>
+    }
+  </div>
+</div>

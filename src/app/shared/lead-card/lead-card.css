@@ -1,0 +1,153 @@
+.lead-card {
+  cursor: pointer; /* Indispensable para indicar que es clickeable */
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e9edf3;
+  border-radius: 22px;
+  padding: 22px 22px 20px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 250px;
+}
+
+.lead-card:hover {
+  transform: translateY(-2px); /* Pequeño salto hacia arriba */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
+}
+
+.lead-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lead-name {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+}
+
+.check-icon {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.lead-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.estado-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.estado-caliente {
+  background: #ff0000;
+  color: #ffffff;
+}
+
+.estado-tibio {
+  background: #fff3bf;
+  color: #a16207;
+  border: 1px solid #f4df7b;
+}
+
+.estado-frio {
+  background: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.tiempo-contacto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tiempo-contacto::before {
+  content: "◷";
+  font-size: 0.95rem;
+  color: #94a3b8;
+}
+
+.lead-info {
+  color: #334155;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.lead-info strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.lead-actions {
+  margin-top: auto;
+}
+
+.btn-principal {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-principal.completado-rojo {
+  background: #ef7d84;
+  color: #ffffff;
+}
+
+.btn-principal.completado-gris {
+  background: #9aa5b1;
+  color: #ffffff;
+}
+
+.btn-principal.completado-verde {
+  background: #95e1c3;
+  color: #ffffff;
+}
+
+.btn-principal:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.98);
+}
+
+.contactado-badge {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}

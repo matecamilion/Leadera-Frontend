@@ -1,0 +1,115 @@
+@if (lead()) {
+<div class="contenedor-detalle">
+  <aside class="columna-info">
+<div class="tarjeta-perfil tarjeta-blanca">
+    <div class="header-nombre">
+      <h2>{{ lead().nombre }} {{ lead().apellido }}</h2>
+      <div class="estado-interactivo" (click)="modalEstado.showModal()">
+    <span class="badge-estado" [ngClass]="lead().estado?.toLowerCase()">
+      {{ lead().estado }}
+    </span>
+    <span class="material-symbols-outlined icono-lapiz">edit</span>
+  </div>
+</div>
+
+<dialog #modalEstado class="modal-leadera">
+  <div class="modal-content">
+    <h3>Actualizar Estado</h3>
+    <p>¿En qué etapa se encuentra <strong>{{ lead().nombre }}</strong>?</p>
+    
+    <div class="opciones-estado">
+      <button (click)="confirmarCambio('FRIO', modalEstado)" class="btn-opcion frio">
+        <span class="material-symbols-outlined">ac_unit</span> FRÍO
+      </button>
+      <button (click)="confirmarCambio('TIBIO', modalEstado)" class="btn-opcion tibio">
+        <span class="material-symbols-outlined">device_thermostat</span> TIBIO
+      </button>
+      <button (click)="confirmarCambio('CALIENTE', modalEstado)" class="btn-opcion caliente">
+        <span class="material-symbols-outlined">local_fire_department</span> CALIENTE
+      </button>
+    </div>
+
+    <button class="btn-cancelar" (click)="modalEstado.close()">Cerrar</button>
+  </div>
+</dialog>
+    
+    <div class="info-linea">
+      <span class="material-symbols-outlined">calendar_today</span>
+      <span>Lead desde el  <strong>{{ lead().fechaEntrada ? (lead().fechaEntrada | date:'dd/MM/yyyy') : 'Sin fecha' }}</strong></span>
+    </div>
+    <div class="info-linea">
+      <span class="material-symbols-outlined">insights</span>
+      <span>{{ lead().interacciones?.length || 0 }} interacciones registradas</span>
+    </div>
+  </div>
+
+  <div class="tarjeta-blanca">
+    <h3>Información de contacto</h3>
+    <div class="info-linea">
+      <span class="material-symbols-outlined">call</span>
+      <span>{{ lead().telefono }}</span>
+    </div>
+    <div class="info-linea">
+      <span class="material-symbols-outlined">mail</span>
+      <span>{{ lead().email }}</span>
+    </div>
+  </div>
+
+  @if (lead().busqueda) {
+    <div class="tarjeta-blanca">
+      <h3>Interés inmobiliario</h3>
+      <div class="info-linea">
+        <span class="material-symbols-outlined">home</span>
+        <span>{{ lead().busqueda.tipoVivienda }} en <strong>{{ lead().busqueda.zona }}</strong></span>
+      </div>
+      <div class="info-linea">
+        <span class="material-symbols-outlined">payments</span>
+        <span>Presupuesto: <strong>{{ lead().busqueda.precioMax | currency:'USD':'symbol':'1.0-0' }}</strong></span>
+        <span>Ambientes: <strong>{{ lead().busqueda.cantidadAmbientes }}</strong></span>
+      </div>
+    </div>
+    
+  }
+
+ <div class="aside-actions">
+  <button [routerLink]="['/leads', lead().id, 'busqueda']" class="btn-configurar-busqueda-full">
+    <span class="material-symbols-outlined">search_insights</span>
+    Configurar Búsqueda
+  </button>
+</div>
+  </aside>
+
+  <main class="columna-historial tarjeta-blanca">
+    <div class="header-historial">
+      <h2>Historial de interacciones</h2>
+      <button class="btn-nueva" [routerLink]="['/leads', id, 'interaccion']">
+        + Nueva interacción
+      </button>
+    </div>
+
+    <div class="timeline">
+      @for (interaccion of lead().interacciones; track interaccion.id) {
+        <div class="timeline-item">
+          <div class="timeline-punto"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <span class="tipo">
+                <span class="material-symbols-outlined icon-blue">
+                  {{ interaccion.tipoInteraccion === 'WHATSAPP' ? 'chat_bubble' : 'schedule' }}
+                </span>
+                {{ interaccion.tipoInteraccion }}
+              </span>
+              <span class="fecha">{{ interaccion.fechaInteraccion | date: "d 'de' MMMM, HH:mm" }}</span>
+            </div>
+            <p class="comentario">{{ interaccion.detalle }}</p>
+          </div>
+        </div>
+      } @empty {
+        <p class="sin-datos">Aún no hay interacciones registradas para este lead.</p>
+      }
+    </div>
+  </main>
+</div>
+} @else {
+  <div class="loading">Cargando detalles del lead...</div>
+}

@@ -1,0 +1,133 @@
+header {
+  padding: 0; /* Dejamos que el contenedor interno maneje el aire */
+  height: 60px; /* Un poquito más de altura para que respire */
+  border-bottom: 3px solid #ebeced;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el div-container */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.div-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Alineado con el main que pusimos en global */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.div-izquierda {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Que el logo no se achique nunca */
+}
+
+img {
+  width: 110px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.div-derecha {
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+  align-items: center;
+}
+
+/* Estilo base para todos los botones - MANTENIDO */
+button {
+  height: 36px; /* Un toque más altos para mejor click en celular */
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap; /* Evita que el texto del botón salte de línea */
+}
+
+.btn-todos {
+  background-color: #32b389;
+  color: white;
+}
+
+.btn-todos:hover {
+  background-color: #2a9673;
+}
+
+.btn-gestion {
+  background-color: #f1f5f9;
+  color: #15803d;
+  border: 1px solid #dcfce7;
+}
+
+.btn-gestion.active {
+  background-color: #15803d;
+  color: white;
+}
+
+.btn-nuevo-prospecto {
+  background-color: white;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+}
+
+/* --- SECCIÓN RESPONSIVE: ACÁ ESTÁ LA MAGIA --- */
+
+@media (max-width: 768px) {
+  header {
+    height: auto;
+    padding: 15px 0; /* Un poco más de aire arriba y abajo */
+  }
+
+  .div-container {
+    flex-direction: column;
+    gap: 15px; /* Más espacio entre el logo y los botones */
+  }
+
+  .div-derecha {
+    width: 100%; /* Los botones ocupan el ancho disponible */
+    justify-content: center; /* Centrados */
+    flex-wrap: wrap; /* Si no entran los 3, el tercero baja solo sin romper nada */
+    gap: 8px;
+  }
+
+  button {
+    flex: 1; /* Hace que los botones crezcan parejos */
+    justify-content: center;
+    min-width: 100px; /* Para que no se hagan minúsculos */
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 500px) {
+  /* En celulares chicos, ocultamos los textos largos para que no explote el ancho */
+  .btn-todos {
+    padding: 0 10px;
+  }
+  
+  /* Ocultamos el texto "Ver todos los leads" y dejamos algo más corto si es necesario */
+  .btn-todos {
+    font-size: 0; /* Esconde el texto */
+  }
+  .btn-todos::before {
+    content: 'Todos'; /* Ponemos un texto corto */
+    font-size: 0.8rem;
+  }
+
+  .btn-gestion span.icon + text, 
+  .btn-gestion {
+     /* Si los botones siguen siendo muy anchos, podés achicar el gap */
+     gap: 4px;
+  }
+}

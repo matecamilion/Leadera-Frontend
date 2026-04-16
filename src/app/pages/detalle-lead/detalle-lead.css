@@ -1,0 +1,318 @@
+/* ==========================================================
+   DETALLE DEL LEAD - CSS COMPLETO (PC + RESPONSIVE)
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* 1. CONTENEDOR PRINCIPAL */
+.contenedor-detalle {
+  display: grid;
+  grid-template-columns: 320px 1fr; /* Columna fija a la izquierda, flexible a la derecha */
+  gap: 24px;
+  padding: 32px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+/* 2. TARJETAS BLANCAS BASE */
+.tarjeta-blanca {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.tarjeta-blanca h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+/* 3. COLUMNA IZQUIERDA: PERFIL */
+.header-nombre {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.header-nombre h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.icono-editar {
+  font-size: 18px !important;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+/* Badges de Estado */
+.badge-estado {
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.badge-estado.caliente { background-color: #fee2e2; color: #b91c1c; }
+.badge-estado.tibio { background: #fef3c7; color: #d97706; }
+.badge-estado.frio { background-color: #dbeafe; color: #1e40af; }
+
+/* Listado de Info */
+.lista-detalles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-linea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.info-linea .material-symbols-outlined {
+  font-size: 20px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.info-linea strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Botón Configurar Búsqueda */
+.aside-actions {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.btn-configurar-busqueda-full {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #f0f7ff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-configurar-busqueda-full:hover {
+  background-color: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* 4. COLUMNA DERECHA: HISTORIAL */
+.header-historial {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.btn-nueva {
+  background-color: #f0f7ff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-nueva:hover {
+  background-color: #1d4ed8;
+  color: white;
+}
+
+/* LÍNEA DE TIEMPO */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 0;
+  width: 2px;
+  background-color: #e2e8f0;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.timeline-punto {
+  position: absolute;
+  left: -32px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  border: 3px solid white;
+  z-index: 2;
+}
+
+.timeline-card {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid #f1f5f9;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.timeline-header .tipo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.icon-blue { color: #3b82f6 !important; font-size: 20px; }
+
+.timeline-header .fecha {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.comentario {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* 5. MODALES */
+.modal-leadera {
+  border: none;
+  border-radius: 20px;
+  padding: 0;
+  width: 350px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-leadera::backdrop {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content { padding: 30px; text-align: center; }
+
+.opciones-estado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.btn-opcion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-opcion.frio { background: #e0f2fe; color: #0369a1; }
+.btn-opcion.tibio { background: #fef3c7; color: #92400e; }
+.btn-opcion.caliente { background: #fee2e2; color: #b91c1c; }
+
+/* 6. REGLAS RESPONSIVE (MÓVIL) */
+@media (max-width: 900px) {
+  .contenedor-detalle {
+    display: flex; /* De Grid a columna única */
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .header-historial {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-nueva {
+    width: 100%;
+    text-align: center;
+  }
+
+  .modal-leadera {
+    width: 90%; /* Modal adaptable */
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .header-nombre h2 {
+    font-size: 1.3rem;
+  }
+
+  .tarjeta-blanca {
+    padding: 16px;
+  }
+}
+
+/* Pantalla de carga */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #64748b;
+  font-weight: 500;
+}
