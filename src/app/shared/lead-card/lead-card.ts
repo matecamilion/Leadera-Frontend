@@ -53,12 +53,16 @@ export class LeadCard {
 
   claseEstado = computed(() => {
     switch (this.lead().estado) {
+      case 'GANADO':
+        return 'estado-ganado';
       case 'CALIENTE':
         return 'estado-caliente';
       case 'TIBIO':
         return 'estado-tibio';
       case 'FRIO':
         return 'estado-frio';
+      case 'INACTIVO':
+        return 'estado-inactivo';
       default:
         return '';
     }
@@ -66,12 +70,16 @@ export class LeadCard {
 
   textoEstado = computed(() => {
     switch (this.lead().estado) {
+      case 'GANADO':
+        return 'GANADO';
       case 'CALIENTE':
-        return 'Caliente';
+        return 'CALIENTE';
       case 'TIBIO':
-        return 'Tibio';
+        return 'TIBIO';
       case 'FRIO':
-        return 'Frío';
+        return 'FRIO';
+      case 'INACTIVO':
+        return 'INACTIVO';
       default:
         return this.lead().estado;
     }

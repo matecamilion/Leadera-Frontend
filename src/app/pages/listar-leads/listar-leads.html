@@ -19,8 +19,7 @@
     <button [class.activa]="estadoSeleccionado() === 'CALIENTE'" (click)="estadoSeleccionado.set('CALIENTE')">Calientes</button>
     <button [class.activa]="estadoSeleccionado() === 'TIBIO'" (click)="estadoSeleccionado.set('TIBIO')">Tibios</button>
     <button [class.activa]="estadoSeleccionado() === 'FRIO'" (click)="estadoSeleccionado.set('FRIO')">Frios</button>
-    <button>Ventas (0)</button>
-    <button>Perdidos (0)</button>
+    <button [class.activa]="estadoSeleccionado() === 'INACTIVO'" (click)="estadoSeleccionado.set('INACTIVO')">Inactivos</button>
   </nav>
 
   <div class="lista-contenedor">

@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth-service';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -27,10 +28,13 @@ export class Login {
     if(this.loginForm.valid){
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('agente_nombre', response.nombre); 
+          localStorage.setItem('agente_email', response.email);  
           console.log('Login exitoso, token guardado');
           this.router.navigate(['/home']);
         },
-        error: (err) => {
+        error: (err) => { 
           console.error('Error en el login', err);
           alert('Credenciales incorrectas. ¡Fijate bien!');
         }

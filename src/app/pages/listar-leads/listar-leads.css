@@ -136,6 +136,7 @@
 .badge-estado.caliente { background: #fee2e2; color: #991b1b; }
 .badge-estado.tibio { background: #fef9c3; color: #854d0e; }
 .badge-estado.frio { background: #dbeafe; color: #1e40af; }
+.badge-estado.inactivo { background-color: #f3f4f6; color: #4b5563; }
 
 .fila-contacto {
   display: flex;

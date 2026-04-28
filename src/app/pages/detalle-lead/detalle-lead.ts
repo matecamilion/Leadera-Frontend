@@ -18,6 +18,23 @@ export class DetalleLead implements OnInit {
   public lead = signal<any>(null);
   public id: number = 0;
 
+  nuevoTelefono: string = '';
+nuevoEmail: string = '';
+errorContacto: string = '';
+
+guardarContacto(modal: HTMLDialogElement) {
+  this.errorContacto = '';
+  this.leadService.editarContacto(this.lead()!.id, this.nuevoTelefono, this.nuevoEmail).subscribe({
+    next: (leadActualizado) => {
+      this.lead.set(leadActualizado);
+      modal.close();
+    },
+    error: (err) => {
+      this.errorContacto = err.error || 'Ya existe un lead con ese teléfono o email.';
+    }
+  });
+}
+
   ngOnInit(): void {
     const paramsId = this.route.snapshot.paramMap.get('id');
     if (paramsId) {
@@ -48,5 +65,18 @@ confirmarCambio(nuevoEstado: string, modal: HTMLDialogElement) {
       alert("No se pudo actualizar el estado");
     }
   });
+}
+
+establecerLeadInactivo(modal: HTMLDialogElement){
+  this.leadService.establecerLeadInactivo(this.lead()!.id).subscribe({
+    next: (leadActualizado) => {
+      this.lead.set(leadActualizado);
+      modal.close();
+    },
+    error: (err) => {
+      console.log(err);
+      alert("No se pudo establecer como inactivo")
+    }
+  })
 }
 }
