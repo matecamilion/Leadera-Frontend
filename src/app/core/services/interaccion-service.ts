@@ -4,26 +4,28 @@ import { Observable } from 'rxjs';
 
 export interface CrearInteraccionRequest {
   detalle: string;
-  fechaInteraccion: string;
   tipoInteraccion: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InteraccionService {
-
   private apiUrl = 'http://localhost:8080/leads';
 
   constructor(private http: HttpClient) {}
 
-  crearInteraccion(leadId: number, body: CrearInteraccionRequest, proximoContacto?: string): Observable<any> {
-    
+  crearInteraccion(
+    leadId: number,
+    body: CrearInteraccionRequest,
+    proximoContacto?: string,
+  ): Observable<any> {
     let params = new HttpParams();
-    
+
     // Si viene la fecha, la agregamos a los parámetros de la URL
     if (proximoContacto) {
-      params = params.append('proximoContacto', proximoContacto);
+      const fecha = proximoContacto.length === 16 ? proximoContacto + ':00' : proximoContacto;
+      params = params.append('proximoContacto', fecha);
     }
 
     return this.http.post(`${this.apiUrl}/${leadId}/interacciones`, body, { params });

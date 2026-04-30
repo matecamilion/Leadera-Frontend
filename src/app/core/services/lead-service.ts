@@ -26,12 +26,12 @@ export class LeadService {
 }
 
  editarContacto(id: number, nuevoTelefono: string, nuevoEmail: string): Observable<Lead> {
-    return this.http.put<Lead>(`${this.apiUrl}/${id}/contacto`, {
+    return this.http.put<Lead>(`${this.apiUrl}/${id}/editar-contacto`, {
       telefono: nuevoTelefono,
       email: nuevoEmail
     });
   }
-  
+
   guardarBusqueda(id: number, busqueda: any): Observable<Lead> {
     // Usamos PUT porque estamos reemplazando/actualizando el recurso búsqueda dentro del lead
     return this.http.put<Lead>(`${this.apiUrl}/${id}/busqueda`, busqueda);

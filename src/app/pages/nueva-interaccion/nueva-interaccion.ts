@@ -25,14 +25,20 @@ export class NuevaInteraccion implements OnInit {
     fechaProximoContacto: [''] 
   });
 
-  // Función para los botones rápidos
-  setSeguimiento(dias: number) {
-    const fecha = new Date();
-    fecha.setDate(fecha.getDate() + dias);
-    // Formato requerido por input type="datetime-local" (YYYY-MM-DDTHH:mm)
-    const fechaFormateada = fecha.toISOString().slice(0, 16);
-    this.miFormulario.get('fechaProximoContacto')?.setValue(fechaFormateada);
-  }
+ setSeguimiento(dias: number) {
+  const fecha = new Date();
+  fecha.setDate(fecha.getDate() + dias);
+
+  const year = fecha.getFullYear();
+  const month = String(fecha.getMonth() + 1).padStart(2, '0');
+  const day = String(fecha.getDate()).padStart(2, '0');
+  const hours = String(fecha.getHours()).padStart(2, '0');
+  const minutes = String(fecha.getMinutes()).padStart(2, '0');
+
+  const fechaFormateada = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+  this.miFormulario.get('fechaProximoContacto')?.setValue(fechaFormateada);
+}
 
   ngOnInit(): void {
     // 1. Obtenemos el ID del lead desde la URL (ej: /leads/5/nueva-interaccion)
@@ -57,7 +63,7 @@ export class NuevaInteraccion implements OnInit {
     const nuevaInteraccion: CrearInteraccionRequest = {
       tipoInteraccion: tipo,
       detalle: detalle,
-      fechaInteraccion: new Date().toISOString()
+    
     };
 
     // Fíjate que ahora pasamos el tercer parámetro al servicio

@@ -10,6 +10,7 @@ import { Login } from './pages/auth/login/login';
 import { Register } from './pages/auth/register/register';
 import { Perfil } from './pages/perfil/perfil';
 import { authGuard } from './core/guards/auth-guard';
+import { PropiedadDetalle } from './pages/propiedad-detalle/propiedad-detalle';
 
 export const routes: Routes = [
     // 1. Rutas de Autenticación (Públicas)
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'gestion-del-dia', component: GestionDelDia, canActivate: [authGuard] },
   { path: 'leads/:id/interaccion', component: NuevaInteraccion, canActivate: [authGuard] },
   { path: 'perfil', component: Perfil, canActivate: [authGuard] },
+  { path: 'propiedades/:id', component: PropiedadDetalle, canActivate: [authGuard] },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }

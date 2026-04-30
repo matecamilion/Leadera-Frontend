@@ -21,6 +21,7 @@ export class ListadoLeadsComponent implements OnInit {
   cargando = signal<boolean>(true);
   filtroBusqueda = signal<string>('');
   estadoSeleccionado = signal<string>('TODOS');
+  tipoSeleccionado = signal<string>('TODOS');
 
   // Lógica reactiva para filtrar
   leadsFiltrados = computed(() => {
@@ -29,6 +30,10 @@ export class ListadoLeadsComponent implements OnInit {
     // Filtro por pestañas de estado
     if (this.estadoSeleccionado() !== 'TODOS') {
       filtrados = filtrados.filter(l => l.estado === this.estadoSeleccionado());
+    }
+
+    if (this.tipoSeleccionado() !== 'TODOS') { // 
+      filtrados = filtrados.filter(l => l.tipoLead === this.tipoSeleccionado());
     }
 
     // Filtro por texto (Nombre, Apellido o Zona)

@@ -28,6 +28,7 @@ export class Login {
     if(this.loginForm.valid){
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
+          console.log('Response completa:', response);
           localStorage.setItem('token', response.token);
           localStorage.setItem('agente_nombre', response.nombre); 
           localStorage.setItem('agente_email', response.email);  
