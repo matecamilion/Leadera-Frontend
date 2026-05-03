@@ -11,6 +11,7 @@ import { Register } from './pages/auth/register/register';
 import { Perfil } from './pages/perfil/perfil';
 import { authGuard } from './core/guards/auth-guard';
 import { PropiedadDetalle } from './pages/propiedad-detalle/propiedad-detalle';
+import { DetalleOperacion } from './pages/detalle-operacion/detalle-operacion';
 
 export const routes: Routes = [
     // 1. Rutas de Autenticación (Públicas)
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'leads/:id/interaccion', component: NuevaInteraccion, canActivate: [authGuard] },
   { path: 'perfil', component: Perfil, canActivate: [authGuard] },
   { path: 'propiedades/:id', component: PropiedadDetalle, canActivate: [authGuard] },
+  { path: 'leads/:leadId/operaciones/:operacionId', component: DetalleOperacion, canActivate: [authGuard], title: 'LeadEra - Detalle Operación' },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
