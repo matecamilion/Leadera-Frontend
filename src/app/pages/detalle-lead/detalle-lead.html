@@ -125,14 +125,6 @@
       Agregar propiedad
     </button>
 
-    <button
-      class="btn-config-comercial secundario"
-      type="button"
-      [routerLink]="['/leads', lead().id, 'busqueda']"
-    >
-      <span class="material-symbols-outlined">manage_search</span>
-      Configurar búsqueda
-    </button>
   </div>
 
   <div class="resumen-config-comercial">
@@ -140,119 +132,8 @@
       <span class="material-symbols-outlined">home_work</span>
       <span>{{ propiedades().length }} propiedades cargadas</span>
     </div>
-
-    <div class="info-linea">
-      <span class="material-symbols-outlined">search</span>
-      <span>
-        @if (lead().busqueda) {
-          Búsqueda configurada
-        } @else {
-          Sin búsqueda configurada
-        }
-      </span>
-    </div>
   </div>
 </div>
-      <!-- Interés inmobiliario si existe búsqueda -->
-@if (lead().busqueda) {
-  <div class="tarjeta-blanca tarjeta-cliqueable" (click)="modalBusquedaDetalle.showModal()">
-    <div style="display: flex; justify-content: space-between; align-items: center">
-      <h3>Interés inmobiliario</h3>
-      <span class="material-symbols-outlined icono-info">info</span>
-    </div>
-
-    <div class="info-linea">
-      <span class="material-symbols-outlined">home</span>
-      <span>
-        {{ lead().busqueda.tipoVivienda }} en
-        <strong>{{ lead().busqueda.zona }}</strong>
-      </span>
-    </div>
-
-    <div class="info-linea">
-      <span class="material-symbols-outlined">payments</span>
-      <span>
-        Presupuesto:
-        <strong>
-          {{ lead().busqueda.precioMax | currency: 'USD' : 'symbol' : '1.0-0' }}
-        </strong>
-      </span>
-
-      <span style="margin-left: 10px">
-        Ambientes: <strong>{{ lead().busqueda.cantidadAmbientes }}</strong>
-      </span>
-    </div>
-  </div>
-
-  <dialog #modalBusquedaDetalle class="modal-leadera modal-ancho">
-    <div class="modal-content">
-      <h3>Detalle de Búsqueda</h3>
-
-      <div class="seccion-detalle-busqueda">
-        <div class="info-linea-detalle">
-          <span class="material-symbols-outlined">home</span>
-          <p>
-            <strong>{{ lead().busqueda.tipoVivienda }}</strong> en
-            <strong>{{ lead().busqueda.zona }}</strong>
-          </p>
-        </div>
-
-        <div class="grid-metros">
-          <div class="item-metro">
-            <label>Totales</label>
-            <span>{{ lead().busqueda.metrosTotales || 0 }} m²</span>
-          </div>
-
-          <div class="item-metro">
-            <label>Cubiertos</label>
-            <span>{{ lead().busqueda.metrosCubiertos || 0 }} m²</span>
-          </div>
-
-          <div class="item-metro">
-            <label>Descubiertos</label>
-            <span>{{ lead().busqueda.metrosDescubiertos || 0 }} m²</span>
-          </div>
-        </div>
-
-        <div class="campo-edicion">
-          <label>Rango de Presupuesto</label>
-          <div class="rango-precios">
-            <span>{{ lead().busqueda.precioMin | currency: 'USD' : 'symbol' : '1.0-0' }}</span>
-            <span class="material-symbols-outlined">trending_flat</span>
-            <span>{{ lead().busqueda.precioMax | currency: 'USD' : 'symbol' : '1.0-0' }}</span>
-          </div>
-        </div>
-
-        <div class="campo-edicion">
-          <label>Ambientes</label>
-          <p class="valor-texto">{{ lead().busqueda.cantidadAmbientes }} ambientes</p>
-        </div>
-
-        <div class="campo-edicion">
-          <label>Observaciones</label>
-          <p class="observaciones-caja">
-            {{ lead().busqueda.observaciones || 'Sin notas adicionales sobre la búsqueda.' }}
-          </p>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 12px; margin-top: 24px">
-        <button
-          class="btn-guardar"
-          [routerLink]="['/leads', lead().id, 'busqueda']"
-          style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px"
-        >
-          <span class="material-symbols-outlined">edit_note</span>
-          Editar Preferencias
-        </button>
-
-        <button class="btn-cancelar" (click)="modalBusquedaDetalle.close()" style="flex: 1">
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </dialog>
-} 
       
 
       
@@ -526,15 +407,47 @@
       </div>
     }
 
-    <!-- Búsqueda: solo si COMPRA -->
+    <!-- Búsqueda inline: solo si COMPRA -->
     @if (nuevaOperacion.tipoOperacion === 'COMPRA') {
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+        <div class="campo-edicion">
+          <label>Tipo de vivienda *</label>
+          <select [(ngModel)]="nuevaBusqueda.tipoVivienda">
+            <option value="">Seleccioná</option>
+            <option value="CASA">Casa</option>
+            <option value="DEPTO">Depto</option>
+            <option value="PH">PH</option>
+            <option value="DUPLEX">Dúplex</option>
+            <option value="TERRENO">Terreno</option>
+            <option value="OFICINA">Oficina</option>
+            <option value="LOCAL">Local</option>
+            <option value="GALPON">Galpón</option>
+          </select>
+        </div>
+        <div class="campo-edicion">
+          <label>Zona *</label>
+          <input type="text" [(ngModel)]="nuevaBusqueda.zona" placeholder="Ej: Playa Grande" />
+        </div>
+        <div class="campo-edicion">
+          <label>Precio mín. (USD)</label>
+          <input type="number" [(ngModel)]="nuevaBusqueda.precioMin" />
+        </div>
+        <div class="campo-edicion">
+          <label>Precio máx. (USD)</label>
+          <input type="number" [(ngModel)]="nuevaBusqueda.precioMax" />
+        </div>
+        <div class="campo-edicion">
+          <label>Ambientes</label>
+          <input type="number" [(ngModel)]="nuevaBusqueda.cantidadAmbientes" />
+        </div>
+        <div class="campo-edicion">
+          <label>m² Totales</label>
+          <input type="number" [(ngModel)]="nuevaBusqueda.metrosTotales" />
+        </div>
+      </div>
       <div class="campo-edicion">
-        <label>Búsqueda asociada</label>
-        @if (lead().busqueda) {
-          <p class="valor-texto">{{ lead().busqueda.tipoVivienda }} en {{ lead().busqueda.zona }} — hasta USD {{ lead().busqueda.precioMax | number }}</p>
-        } @else {
-          <p class="sin-datos">El lead no tiene búsqueda configurada.</p>
-        }
+        <label>Observaciones</label>
+        <textarea [(ngModel)]="nuevaBusqueda.observaciones" rows="2" placeholder="Necesidades especiales..."></textarea>
       </div>
     }
 
@@ -548,7 +461,7 @@
     }
 
     <div style="display:flex; gap:12px; margin-top:16px">
-      <button class="btn-cancelar" (click)="modalNuevaOperacion.close(); errorOperacion=''">Cancelar</button>
+      <button class="btn-cancelar" (click)="modalNuevaOperacion.close(); errorOperacion=''; nuevaBusqueda={}">Cancelar</button>
       <button class="btn-guardar" style="flex:1" (click)="agregarOperacion(modalNuevaOperacion)">Guardar</button>
     </div>
   </div>

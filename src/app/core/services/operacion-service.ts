@@ -25,8 +25,7 @@ export interface CrearOperacionRequest {
   tipoOperacion: TipoOperacion;
   descripcion: string;
   propiedad?: { id: number } | null;
-  busqueda?: { id: number } | null;
-
+  busqueda?: Busqueda | null;
 }
 
 @Injectable({

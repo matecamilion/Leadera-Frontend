@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LeadsHoyResponse } from '../models/leads-hoy-response';
 import { Lead } from '../models/lead';
-import { Busqueda } from '../models/busqueda';
 
 @Injectable({
   providedIn: 'root',
@@ -31,12 +30,6 @@ export class LeadService {
       email: nuevoEmail
     });
   }
-
-  guardarBusqueda(id: number, busqueda: any): Observable<Lead> {
-    // Usamos PUT porque estamos reemplazando/actualizando el recurso búsqueda dentro del lead
-    return this.http.put<Lead>(`${this.apiUrl}/${id}/busqueda`, busqueda);
-  }
-
 
   actualizarEstado(id: number, nuevoEstado: string): Observable<Lead> {
     // Según tu Controller, la ruta es /leads/{id}/estado

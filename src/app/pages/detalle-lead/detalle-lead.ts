@@ -5,9 +5,9 @@ import { LeadService } from '../../core/services/lead-service';
 import { FormsModule } from '@angular/forms';
 import { PropiedadService } from '../../core/services/propiedad-service';
 import { Propiedad } from '../../core/models/propiedad';
+import { Busqueda } from '../../core/models/busqueda';
 import { DetallePropiedadComponent } from '../detalle-propiedad/detalle-propiedad';
-import { OperacionService, Operacion } from '../../core/services/operacion-service';
-import { CrearOperacionRequest } from '../../core/services/operacion-service';
+import { OperacionService, Operacion, CrearOperacionRequest } from '../../core/services/operacion-service';
 
 @Component({
   selector: 'app-detalle-lead',
@@ -130,41 +130,43 @@ export class DetalleLead implements OnInit {
     });
   }
   nuevaOperacion: Partial<CrearOperacionRequest> = {};
-errorOperacion: string = '';
+  nuevaBusqueda: Partial<Busqueda> = {};
+  errorOperacion: string = '';
 
-agregarOperacion(modal: HTMLDialogElement) {
-  if (!this.nuevaOperacion.titulo || !this.nuevaOperacion.tipoOperacion) {
-    this.errorOperacion = 'Título y tipo son obligatorios.';
-    return;
-  }
-  if (this.nuevaOperacion.tipoOperacion === 'VENTA' && !this.nuevaOperacion.propiedad?.id) {
-    this.errorOperacion = 'Seleccioná una propiedad para operaciones de venta.';
-    return;
-  }
-  if (this.nuevaOperacion.tipoOperacion === 'COMPRA' && !this.lead().busqueda?.id) {
-    this.errorOperacion = 'El lead no tiene búsqueda configurada.';
-    return;
-  }
-
-  const body: CrearOperacionRequest = {
-    titulo: this.nuevaOperacion.titulo!,
-    tipoOperacion: this.nuevaOperacion.tipoOperacion!,
-    descripcion: this.nuevaOperacion.descripcion || '',
-    propiedad: this.nuevaOperacion.tipoOperacion === 'VENTA' ? { id: this.nuevaOperacion.propiedad!.id } : null,
-    busqueda: this.nuevaOperacion.tipoOperacion === 'COMPRA' ? { id: this.lead().busqueda.id } : null,
-  };
-
-  this.operacionService.crearOperacion(this.id, body).subscribe({
-    next: (op) => {
-      this.operaciones.update(list => [...list, op]);
-      this.nuevaOperacion = {};
-      this.errorOperacion = '';
-      modal.close();
-    },
-    error: (err) => {
-      this.errorOperacion = 'Error al crear la operación.';
-      console.error(err);
+  agregarOperacion(modal: HTMLDialogElement) {
+    if (!this.nuevaOperacion.titulo || !this.nuevaOperacion.tipoOperacion) {
+      this.errorOperacion = 'Título y tipo son obligatorios.';
+      return;
     }
-  });
-}
+    if (this.nuevaOperacion.tipoOperacion === 'VENTA' && !this.nuevaOperacion.propiedad?.id) {
+      this.errorOperacion = 'Seleccioná una propiedad para operaciones de venta.';
+      return;
+    }
+    if (this.nuevaOperacion.tipoOperacion === 'COMPRA' && (!this.nuevaBusqueda.tipoVivienda || !this.nuevaBusqueda.zona)) {
+      this.errorOperacion = 'Completá el tipo de vivienda y la zona de la búsqueda.';
+      return;
+    }
+
+    const body: CrearOperacionRequest = {
+      titulo: this.nuevaOperacion.titulo!,
+      tipoOperacion: this.nuevaOperacion.tipoOperacion!,
+      descripcion: this.nuevaOperacion.descripcion || '',
+      propiedad: this.nuevaOperacion.tipoOperacion === 'VENTA' ? { id: this.nuevaOperacion.propiedad!.id } : null,
+      busqueda: this.nuevaOperacion.tipoOperacion === 'COMPRA' ? (this.nuevaBusqueda as Busqueda) : null,
+    };
+
+    this.operacionService.crearOperacion(this.id, body).subscribe({
+      next: (op) => {
+        this.operaciones.update(list => [...list, op]);
+        this.nuevaOperacion = {};
+        this.nuevaBusqueda = {};
+        this.errorOperacion = '';
+        modal.close();
+      },
+      error: (err) => {
+        this.errorOperacion = 'Error al crear la operación.';
+        console.error(err);
+      }
+    });
+  }
 }

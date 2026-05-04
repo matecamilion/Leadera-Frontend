@@ -21,28 +21,20 @@ export class ListadoLeadsComponent implements OnInit {
   cargando = signal<boolean>(true);
   filtroBusqueda = signal<string>('');
   estadoSeleccionado = signal<string>('TODOS');
-  tipoSeleccionado = signal<string>('TODOS');
 
   // Lógica reactiva para filtrar
   leadsFiltrados = computed(() => {
     let filtrados = this.leads();
 
-    // Filtro por pestañas de estado
     if (this.estadoSeleccionado() !== 'TODOS') {
       filtrados = filtrados.filter(l => l.estado === this.estadoSeleccionado());
     }
 
-    if (this.tipoSeleccionado() !== 'TODOS') { // 
-      filtrados = filtrados.filter(l => l.tipoLead === this.tipoSeleccionado());
-    }
-
-    // Filtro por texto (Nombre, Apellido o Zona)
     const busqueda = this.filtroBusqueda().toLowerCase().trim();
     if (busqueda) {
-      filtrados = filtrados.filter(l => 
+      filtrados = filtrados.filter(l =>
         l.nombre.toLowerCase().includes(busqueda) ||
-        l.apellido.toLowerCase().includes(busqueda) ||
-        l.busqueda?.zona?.toLowerCase().includes(busqueda)
+        l.apellido.toLowerCase().includes(busqueda)
       );
     }
 

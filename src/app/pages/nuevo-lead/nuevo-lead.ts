@@ -26,9 +26,8 @@ export class NuevoLead {
   apellido: ['', [Validators.required]],
   telefono: ['', [Validators.required]],
   email: ['', [Validators.email]],
-  tipoLead: ['COMPRADOR', [Validators.required]],
-  estado: ['FRIO', [Validators.required]], // Lo seteamos inicial pero visible por si ya es un contacto caliente
-  fechaProximoSeguimiento: [''] // Opcional por si ya querés agendar la primera llamada
+  estado: ['FRIO', [Validators.required]],
+  fechaProximoSeguimiento: ['']
 });
 
   guardar() {
@@ -37,15 +36,7 @@ export class NuevoLead {
   // Enviamos el objeto lead al backend
   this.leadService.crearLead(this.leadForm.value).subscribe({
     next: (leadCreado) => {
-      // Usamos el ID que devolvió el backend (Long id)
-      const irABusqueda = confirm('¡Lead creado con éxito! ¿Deseas configurar las preferencias de búsqueda ahora?');
-
-      if (irABusqueda) {
-        // Navegamos a la ruta de búsqueda pasando el ID recién creado
-        this.router.navigate(['/leads', leadCreado.id, 'busqueda']);
-      } else {
-        this.router.navigate(['/leads']);
-      }
+      this.router.navigate(['/leads', leadCreado.id]);
     },
     error: (err) => {
       console.error('Error al crear el lead', err);

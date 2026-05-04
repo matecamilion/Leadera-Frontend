@@ -15,9 +15,7 @@
   </header>
 
   <nav class="pestañas-filtro">
-    <button [class.activa]="tipoSeleccionado() === 'TODOS'" (click)="tipoSeleccionado.set('TODOS')">Todos ({{leads().length}})</button>
-    <button [class.activa]="tipoSeleccionado() === 'COMPRADOR'" (click)="tipoSeleccionado.set('COMPRADOR')">Compradores</button>
-    <button [class.activa]="tipoSeleccionado() === 'VENDEDOR'" (click)="tipoSeleccionado.set('VENDEDOR')">Vendedores</button>
+    <button [class.activa]="estadoSeleccionado() === 'TODOS'" (click)="estadoSeleccionado.set('TODOS')">Todos ({{leads().length}})</button>
     <button [class.activa]="estadoSeleccionado() === 'CALIENTE'" (click)="estadoSeleccionado.set('CALIENTE')">Calientes</button>
     <button [class.activa]="estadoSeleccionado() === 'TIBIO'" (click)="estadoSeleccionado.set('TIBIO')">Tibios</button>
     <button [class.activa]="estadoSeleccionado() === 'FRIO'" (click)="estadoSeleccionado.set('FRIO')">Frios</button>
@@ -62,16 +60,7 @@
   </div>
 
   <div class="seccion-busqueda">
-    @if (lead.busqueda) {
-      <div class="info-propiedad">
-        <p class="tipo-propiedad">
-          <span class="material-symbols-outlined icono-v">home_work</span>
-          {{ lead.busqueda.tipoVivienda }}, {{ lead.busqueda.zona }}
-        </p>
-        <p class="precio-rango">USD {{ lead.busqueda.precioMin | number }} - {{ lead.busqueda.precioMax | number }}</p>
-      </div>
-    }
-    <button class="btn-detalle" [routerLink]="['/leads', lead.id]" >Ver detalle</button>
+    <button class="btn-detalle" [routerLink]="['/leads', lead.id]">Ver detalle</button>
   </div>
 </div>
     }

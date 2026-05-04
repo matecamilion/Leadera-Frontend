@@ -3,7 +3,6 @@ import { NuevaInteraccion } from './pages/nueva-interaccion/nueva-interaccion';
 import { Home } from './pages/home/home';
 import { ListadoLeadsComponent } from './pages/listar-leads/listar-leads';
 import { DetalleLead } from './pages/detalle-lead/detalle-lead';
-import { GestionarBusquedaComponent } from './pages/gestionar-busqueda/gestionar-busqueda';
 import { GestionDelDia } from './pages/gestion-del-dia/gestion-del-dia';
 import { NuevoLead } from './pages/nuevo-lead/nuevo-lead';
 import { Login } from './pages/auth/login/login';
@@ -22,7 +21,6 @@ export const routes: Routes = [
   { path: 'leads', component: ListadoLeadsComponent, canActivate: [authGuard] },
   { path: 'leads/nuevo', component: NuevoLead, canActivate: [authGuard] },
   { path: 'leads/:id', component: DetalleLead, canActivate: [authGuard] },
-  { path: 'leads/:id/busqueda', component: GestionarBusquedaComponent, canActivate: [authGuard], title: 'LeadEra - Gestionar Búsqueda' },
   { path: 'gestion-del-dia', component: GestionDelDia, canActivate: [authGuard] },
   { path: 'leads/:id/interaccion', component: NuevaInteraccion, canActivate: [authGuard] },
   { path: 'perfil', component: Perfil, canActivate: [authGuard] },
